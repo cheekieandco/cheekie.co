@@ -36,6 +36,39 @@
   </div>
 </section>
 
+<!-- GALLERY CAROUSEL -->
+<section>
+  <div class="wrap">
+    <div class="sec-head" style="text-align:center;margin-left:auto;margin-right:auto">
+      <span class="kicker">Recent work</span>
+      <h2>A peek at the parties.</h2>
+    </div>
+    <div class="carousel" id="gallery">
+      <div class="carousel-frame">
+        <div class="carousel-track" id="track">
+          <div class="slide"><img src="assets/gallery/work-11.jpg" alt="Champagne tower and floral celebration cake on a candlelit kitchen island" loading="lazy"><div class="cap">Champagne tower &amp; dessert moment</div></div>
+          <div class="slide"><img src="assets/gallery/work-03.jpg" alt="Outdoor tented reception table with a lantern-and-rose centerpiece and a Reserved sign" loading="lazy"><div class="cap">Garden-tent tablescape</div></div>
+          <div class="slide"><img src="assets/gallery/work-08.jpg" alt="Abundant grazing table with charcuterie, cheeses, fruit, crackers and fresh flowers" loading="lazy"><div class="cap">Grazing table styling</div></div>
+          <div class="slide"><img src="assets/gallery/work-12.jpg" alt="Custom moss-and-fresh-flower monogram letters displayed at a milestone celebration" loading="lazy"><div class="cap">Custom floral monogram display</div></div>
+          <div class="slide"><img src="assets/gallery/work-07.jpg" alt="Botanical garden reception tablescape with candles, greenery napkins and gold table number" loading="lazy"><div class="cap">Botanical garden reception details</div></div>
+          <div class="slide"><img src="assets/gallery/work-10.jpg" alt="Chilled Moët in a rose-petal-filled bucket beside a rose-topped celebration cake" loading="lazy"><div class="cap">Champagne &amp; floral cake</div></div>
+          <div class="slide"><img src="assets/gallery/work-13.jpg" alt="Pink and red floral arrangement beside a row of gold glitter guest favor bags" loading="lazy"><div class="cap">Guest favor send-off</div></div>
+          <div class="slide"><img src="assets/gallery/work-06.jpg" alt="Intimate dinner tablescape with burgundy napkins and red floral accents against white brick" loading="lazy"><div class="cap">Intimate dinner tablescape</div></div>
+          <div class="slide"><img src="assets/gallery/work-05.jpg" alt="Industrial-chic reception place setting with pampas, candles and a printed place card" loading="lazy"><div class="cap">Reception place settings</div></div>
+          <div class="slide"><img src="assets/gallery/work-04.jpg" alt="Ballroom full of guests at the BIOP Excellence Awards and Gala" loading="lazy"><div class="cap">BIOP Excellence Awards &amp; Gala</div></div>
+          <div class="slide"><img src="assets/gallery/work-02.jpg" alt="Custom favor and details station with a mirror and curated keepsakes" loading="lazy"><div class="cap">Custom favor &amp; details table</div></div>
+          <div class="slide"><img src="assets/gallery/work-01.jpg" alt="Beverage bar with champagne on ice, glassware and citrus garnish" loading="lazy"><div class="cap">Bubbly bar &amp; beverage station</div></div>
+          <div class="slide"><img src="assets/gallery/work-09.jpg" alt="Close-up of a honey pot and charcuterie on a styled grazing board" loading="lazy"><div class="cap">Charcuterie, up close</div></div>
+        </div>
+      </div>
+      <button class="carousel-btn prev" id="prevBtn" aria-label="Previous photo">‹</button>
+      <button class="carousel-btn next" id="nextBtn" aria-label="Next photo">›</button>
+      <div class="carousel-dots" id="dots" role="tablist" aria-label="Choose photo"></div>
+      <div class="carousel-count"><span id="cur">1</span> / <span id="total">13</span></div>
+    </div>
+  </div>
+</section>
+
 <!-- FEATURED REVIEW -->
 <section>
   <div class="wrap">
@@ -93,6 +126,28 @@
         <div class="cred"><div class="deg">B.S. Psychology</div><div class="sch">Howard University</div></div>
         <div class="cred"><div class="deg">M.S. Industrial &amp; Organizational Psychology</div><div class="sch">Emporia State University</div></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- VENUES -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">Trusted at</span>
+      <h2>Venues I've worked with.</h2>
+      <p>From galleries and gardens to rooftops and private estates across the DMV.</p>
+    </div>
+    <div class="venue-grid">
+      <div class="venue"><div class="vname">Fathom Gallery</div><div class="vloc">Washington, DC</div></div>
+      <div class="venue"><div class="vname">Meadowlark Botanical Gardens</div><div class="vloc">Vienna, VA</div></div>
+      <div class="venue"><div class="vname">The Bellevue Conference &amp; Event Center</div><div class="vloc">Chantilly, VA</div></div>
+      <div class="venue"><div class="vname">Torpedo Factory Art Center</div><div class="vloc">Alexandria, VA</div></div>
+      <div class="venue"><div class="vname">Hendry House</div><div class="vloc">Arlington, VA</div><span class="vtag">Outdoor</span></div>
+      <div class="venue"><div class="vname">Private Residence at Fig Hill</div><div class="vloc">Middleburg, VA</div><span class="vtag">Outdoor</span></div>
+      <div class="venue"><div class="vname">Marriott Baltimore Inner Harbor</div><div class="vloc">Baltimore, MD</div></div>
+      <div class="venue"><div class="vname">The Point at Eisenhower Rooftop Clubroom</div><div class="vloc">Alexandria, VA</div></div>
+      <div class="venue"><div class="vname">The Garden</div><div class="vloc">Alexandria, VA</div></div>
     </div>
   </div>
 </section>
@@ -160,6 +215,67 @@
   document.getElementById('year').textContent = new Date().getFullYear();
   const menuBtn=document.getElementById('menuBtn'),navLinks=document.getElementById('navLinks');
   menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
+
+  // ---------- gallery carousel ----------
+  (function(){
+    const track=document.getElementById('track');
+    if(!track) return;
+    const slides=Array.from(track.children);
+    const dotsWrap=document.getElementById('dots');
+    const curEl=document.getElementById('cur');
+    const total=slides.length;
+    let i=0;
+    const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.getElementById('total').textContent=total;
+    slides.forEach((_,n)=>{
+      const d=document.createElement('button');
+      d.className='dot'+(n===0?' active':'');
+      d.setAttribute('role','tab');
+      d.setAttribute('aria-label','Photo '+(n+1));
+      d.addEventListener('click',()=>{go(n);restart();});
+      dotsWrap.appendChild(d);
+    });
+    const dots=Array.from(dotsWrap.children);
+
+    function go(n){
+      i=(n+total)%total;
+      track.style.transform='translateX(-'+(i*100)+'%)';
+      dots.forEach((d,k)=>d.classList.toggle('active',k===i));
+      curEl.textContent=i+1;
+    }
+    const next=()=>go(i+1), prev=()=>go(i-1);
+    document.getElementById('nextBtn').addEventListener('click',()=>{next();restart();});
+    document.getElementById('prevBtn').addEventListener('click',()=>{prev();restart();});
+
+    // autoplay (skipped if user prefers reduced motion)
+    let timer=null;
+    function start(){ if(reduce) return; timer=setInterval(next,5000); }
+    function stop(){ if(timer){clearInterval(timer);timer=null;} }
+    function restart(){ stop(); start(); }
+    const car=document.getElementById('gallery');
+    car.addEventListener('mouseenter',stop);
+    car.addEventListener('mouseleave',start);
+
+    // keyboard
+    car.setAttribute('tabindex','0');
+    car.addEventListener('keydown',e=>{
+      if(e.key==='ArrowRight'){next();restart();}
+      if(e.key==='ArrowLeft'){prev();restart();}
+    });
+
+    // touch swipe
+    let x0=null;
+    track.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;stop();},{passive:true});
+    track.addEventListener('touchend',e=>{
+      if(x0===null) return;
+      const dx=e.changedTouches[0].clientX-x0;
+      if(Math.abs(dx)>40){ dx<0?next():prev(); }
+      x0=null; start();
+    });
+
+    start();
+  })();
 </script>
 </body>
 </html>
